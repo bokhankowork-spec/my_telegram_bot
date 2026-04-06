@@ -1,12 +1,28 @@
 import requests
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
+import threading
+from flask import Flask
 
 TELEGRAM_TOKEN = "8778233587:AAF2Xvfs2Zoh0UGAO7y573LNCiX9m5xGnQg"
 DEEPSEEK_API_KEY = "sk-b985c50489844eadae6e8e0c471506a3"
 
 DEEPSEEK_URL = "https://api.deepseek.com/v1/chat/completions"
 
+# Flask app for health check
+flask_app = Flask(__name__)
+
+@flask_app.route('/')
+def health():
+    return "OK", 200
+
+def run_flask():
+    flask_app.run(host='0.0.0.0', port=8080)
+
+# Запускаем Flask в отдельном потоке
+threading.Thread(target=run_flask, daemon=True).start()
+
+# --- Telegram bot handlers ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Привет, бро! Я твой помощник на базе DeepSeek. Пиши любые вопросы, задачи - я отвечу.")
 
