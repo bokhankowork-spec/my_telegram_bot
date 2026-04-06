@@ -291,10 +291,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def getid(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_chat.id == AUTHORIZED_CHAT_ID:
-        await update.message.reply_text(f"Твой chat_id: {update.effective_chat.id}")
-    else:
-        await update.message.reply_text("Нет прав.")
+    await update.message.reply_text(f"Твой chat_id: {update.effective_chat.id}")
 
 async def remind_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text
