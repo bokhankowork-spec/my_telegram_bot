@@ -1,6 +1,3 @@
 flask
 python-telegram-bot
-requestspython-telegram-bot
-requests
-flaskpython-telegram-bot
 requests
